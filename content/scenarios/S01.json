@@ -1,0 +1,91 @@
+{
+  "id": "S01",
+  "title": "Cold call — online ordering for a restaurant",
+  "summary": "Cold-call a busy pizzeria owner and earn a short meeting.",
+  "skills": ["COM.OPENING", "COM.CLARITY", "DIS.CALIBRATED"],
+  "difficulty_default": 2,
+  "primary_industry": "restaurants",
+  "rubric_weights": {
+    "clarity": 20,
+    "listening": 10,
+    "questions": 15,
+    "empathy": 10,
+    "confidence": 15,
+    "value": 15,
+    "objections": 10,
+    "closing": 5
+  },
+  "challenge_tags": ["cold_calls"],
+  "sort_order": 1,
+  "variants": [
+    {
+      "industry": "restaurants",
+      "version": 1,
+      "brief": {
+        "counterpart": "Marco, owner of an independent pizzeria (50s)",
+        "your_role": "Freelance web developer offering commission-free online ordering",
+        "your_goal": "Earn 10–15 minutes and book a short meeting or visit",
+        "channel": "phone",
+        "setting": "Tuesday, 3:40 pm. You found the pizzeria on a delivery app and are calling cold. Prep is happening in the background."
+      },
+      "persona": {
+        "name": "Marco",
+        "role": "Owner",
+        "company": "Marco's Pizzeria",
+        "style": "assertive",
+        "mood_at_start": "Busy and blunt; has had too many agency cold calls. Softens if the caller is brief and respects his time.",
+        "public_facts": [
+          "Independent pizzeria, family-run for 18 years",
+          "Takes phone orders and is listed on a delivery app",
+          "Has a basic website someone made years ago"
+        ],
+        "budget_real": "Would pay a reasonable one-time fee if it clearly cuts delivery-app commissions",
+        "budget_stated": "No budget for 'computer stuff'"
+      },
+      "context": "Tuesday, 3:40 pm. The user cold-calls an independent pizzeria they found on a delivery app. Prep is happening in the background.",
+      "user_role": "Freelance web developer offering commission-free online ordering",
+      "user_objective": "Earn 10–15 minutes and book a short meeting or visit",
+      "ai_objective": "Get off the phone fast unless the caller quickly shows relevance",
+      "hidden_facts": [
+        {
+          "id": "F1",
+          "fact": "The delivery app takes a large commission on every order and Marco resents it.",
+          "unlock": { "min_trust": 4, "behavior": "user mentions or asks about delivery apps or fees" }
+        }
+      ],
+      "black_swan": {
+        "fact": "His daughter (in college) handles 'the computer stuff'. She must be in any meeting and is the real user of any system.",
+        "unlock": { "min_trust": 6, "behavior": "user asks how decisions like this get made or who else is involved" }
+      },
+      "objections": [
+        { "text": "Not interested.", "trigger": "the caller opens with a pitch or sounds scripted" },
+        { "text": "We're busy.", "trigger": "the caller doesn't check if it's a good time" },
+        { "text": "Send me an email.", "trigger": "the caller asks for a meeting before showing relevance" },
+        { "text": "We already have a website.", "trigger": "the caller talks about websites instead of orders or fees" }
+      ],
+      "success_criteria": [
+        "Checked timing within the first 2 turns",
+        "Benefit statement of 25 words or fewer",
+        "At least 1 calibrated (What/How) question",
+        "Meeting agreed with a day and time",
+        "Bonus: daughter included in the meeting"
+      ],
+      "failure_conditions": [
+        "Hung up on",
+        "More than 3 turns spent pitching features",
+        "Argued with 'not interested'"
+      ],
+      "vocabulary": ["covers", "peak service", "delivery-app commission", "POS", "front of house", "food cost"],
+      "config": {
+        "start_trust": 3,
+        "hang_up_threshold": 1.5,
+        "max_turns": 14,
+        "value_perception_enabled": false,
+        "start_value": null,
+        "channel": "phone",
+        "ai_speaks_first": true,
+        "acceptable_no_deal": false
+      }
+    }
+  ]
+}
