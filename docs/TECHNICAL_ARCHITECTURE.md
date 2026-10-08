@@ -1,6 +1,6 @@
 # Technical Architecture: AI Sales Communication Coach (MVP / V1)
 
-**Source of truth:** `../knowledge-system/` (product spec). This document only decides *how* to build it. It doesn't change the methodology. Where the current API forces a deviation from the spec, it's listed in §10 "Spec errata".
+**Source of truth:** `knowledge-system/` in this repo (product spec). This document only decides *how* to build it. It doesn't change the methodology. Where the current API forces a deviation from the spec, it's listed in §10 "Spec errata".
 
 **Validation goal:** *Does practicing a realistic sales conversation with AI make users want to retry and improve their score?*
 
@@ -71,7 +71,7 @@ knowledge-system/04-rubrics.md (D1–D10 section)       ──┘        │
 ```
 
 - `npm run knowledge:sync` regenerates the file. `npm run knowledge:check` (run in CI and `prebuild`) fails if the generated file is out of date.
-- The generated file is committed, so deployment doesn't depend on the sibling folder being present.
+- The generated file is committed, so the runtime never parses markdown. `knowledge:check` keeps it in sync with the spec in this repo.
 - Every evaluation stores `prompt_version = KNOWLEDGE_HASH`, so scores stay traceable to the exact prompt and rubric text.
 
 Scenario content comes from `knowledge-system/03-scenarios.md`. It's transcribed **once** into structured JSON (`content/scenarios/*.json`), validated with a Zod schema, and seeded into the DB. The scenario fields map 1:1 to the template fields in the spec (§2 of 03-scenarios.md) and to the persona generator fields (§3).

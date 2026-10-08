@@ -101,9 +101,9 @@ activation (≥ 1 evaluated session) · retry rate · attempt 1→3 gain · week
 | 5 Retry, dashboard, history | M |
 | 6 Landing + hardening + deploy | M |
 
-## Decisions needed before implementation
-1. **Models:** default is `claude-opus-5-5` for both roleplay (effort low) and evaluation (effort high). Should roleplay use `claude-sonnet-5-5` instead to lower latency and cost? (One env var either way.)
-2. **Errata E1–E6** in TECHNICAL_ARCHITECTURE.md §10. In particular E3: **1 variant per scenario (recommended) or 3 industries × 6 = 18 variants** in V1.
-3. **Infrastructure:** create a **new** Supabase project for this app (I can do it through the connected Supabase tools with your OK), or use an existing one? Local development uses the Supabase CLI either way.
-4. **Hosting:** Vercel assumed (evaluation needs ≥ 120 s function duration).
-5. **App location:** `C:\Users\poste\Desktop\ClaudeCode\sales-coach\` (sibling of `knowledge-system/`). Initialize a git repo there?
+## Decisions (resolved)
+1. **Models:** `claude-opus-5-5` for both roleplay (effort low) and evaluation (effort high).
+2. **E3:** 1 variant per scenario (primary industry) in V1.
+3. **Infrastructure:** local Supabase CLI stack for development. The cloud project gets created at deploy time.
+4. **Hosting:** Vercel assumed (evaluation needs ≥ 120 s function duration). Confirm at deploy time.
+5. **Repo:** https://github.com/Bendahmad/sales-coach. The spec lives in `knowledge-system/` inside the repo.
