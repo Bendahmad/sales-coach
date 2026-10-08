@@ -133,6 +133,7 @@ create table public.roleplay_sessions (
   final_value_perception numeric(4,1),
   realism_rating smallint check (realism_rating between 1 and 5),   -- MVP metric "felt real"
   started_at timestamptz not null default now(),
+  last_activity_at timestamptz not null default now(),  -- for the 24h stale-session abandon rule
   ended_at timestamptz,
   evaluated_at timestamptz
 );
@@ -229,7 +230,9 @@ create policy "own progress"       on public.user_skill_progress for select usin
 -- No insert/update/delete policies: all writes go through server routes with the service role.
 ```
 
-**Column-level protection.** Clients must never see `roleplay_sessions.rendered_system_prompt` (which contains hidden facts) or `roleplay_messages.engine_state` / `raw_content` *during* an active session. V1 handles this by **not querying these tables from the browser at all**: all reads happen in Server Components or Route Handlers that select explicit safe columns. RLS is defense in depth. Optional hardening (planned): `revoke select (rendered_system_prompt) on roleplay_sessions from authenticated;` and the same for `engine_state, raw_content` on messages.
+**Column-level protection.** Clients must never see `roleplay_sessions.rendered_system_prompt` (which contains hidden facts) or `roleplay_messages.engine_state` / `raw_content` *during* an active session. V1 handles this by **not querying these tables from the browser at all**: all reads happen in Server Components or Route Handlers that select explicit safe columns. RLS is defense in depth. The migration also applies **column-level grants**: `authenticated` can select only the safe columns of `roleplay_sessions` (not `rendered_system_prompt`, `prompt_version`, `roleplay_model`, `unlock_bonus`, `final_trust`, `final_value_perception`) and of `roleplay_messages` (`id, session_id, turn, role, content, created_at`). `scenario_industries` has all privileges revoked from `anon`/`authenticated`.
+
+**Implemented in** `supabase/migrations/20261008000000_init.sql`.
 
 After evaluation, hidden facts become visible to the user through `evaluations.feedback.hidden_info_recap`. This is intended (prompt I).
 

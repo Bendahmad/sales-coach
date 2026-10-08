@@ -1,0 +1,94 @@
+[
+  {
+    "name": "S01-good",
+    "scenario": "S01",
+    "expect": "good",
+    "rows": [
+      { "turn": 0, "role": "ai", "content": "Marco's Pizzeria, yeah?", "state": { "trust": 3 } },
+      { "turn": 1, "role": "user", "content": "Hi Marco, it's Sam. Did I catch you at a bad time?" },
+      { "turn": 1, "role": "ai", "content": "Kind of, we're prepping. What is it?", "state": { "trust": 3.5 } },
+      { "turn": 2, "role": "user", "content": "I'll be quick. I help pizzerias take orders online without paying the delivery-app commission. How much of your business comes through the apps right now?" },
+      { "turn": 2, "role": "ai", "content": "Too much. They take a fat cut on every order. Honestly it kills me.", "state": { "trust": 4.5, "revealed": ["F1"] } },
+      { "turn": 3, "role": "user", "content": "Kills you?" },
+      { "turn": 3, "role": "ai", "content": "Thirty percent, Sam. Thirty. On a Friday night that's my whole margin.", "state": { "trust": 5 } },
+      { "turn": 4, "role": "user", "content": "It sounds like you're working Friday nights for the app instead of for yourself. How do decisions about this kind of thing get made on your side?" },
+      { "turn": 4, "role": "ai", "content": "My daughter does all the computer stuff. She'd have to be there, she's the one who'd use it.", "state": { "trust": 6.5, "revealed": ["BLACK_SWAN"] } },
+      { "turn": 5, "role": "user", "content": "Makes sense. Would it be a bad idea to set 15 minutes with both of you on Thursday at 3pm, before the dinner rush, so I can show you what it would look like?" },
+      { "turn": 5, "role": "ai", "content": "Thursday at 3 works. Don't be late, we open at 5.", "state": { "trust": 7, "end": true, "outcome": "advanced" } }
+    ]
+  },
+  {
+    "name": "S01-bad",
+    "scenario": "S01",
+    "expect": "bad",
+    "rows": [
+      { "turn": 0, "role": "ai", "content": "Marco's Pizzeria, yeah?", "state": { "trust": 3 } },
+      { "turn": 1, "role": "user", "content": "Hi! I'm a full-stack developer with ten years of experience building React and Next.js websites with SEO, analytics, ordering systems and great design. Do you want more customers?" },
+      { "turn": 1, "role": "ai", "content": "Everybody wants more customers. We're busy.", "state": { "trust": 2.5, "fake_yes": false } },
+      { "turn": 2, "role": "user", "content": "It will only take two minutes. You really need a modern website, your current one is terrible." },
+      { "turn": 2, "role": "ai", "content": "We already have a website. Send me an email.", "state": { "trust": 1.5 } },
+      { "turn": 3, "role": "user", "content": "You're wrong, every restaurant needs this. The offer ends today, so you should decide now." },
+      { "turn": 3, "role": "ai", "content": "Not interested. Bye.", "state": { "trust": 0.5, "end": true, "outcome": "lost" } }
+    ]
+  },
+  {
+    "name": "S04-good",
+    "scenario": "S04",
+    "expect": "good",
+    "rows": [
+      { "turn": 0, "role": "ai", "content": "Hi! Thanks for calling back. So... I looked at the quote. It's more than I expected, honestly.", "state": { "trust": 5, "value_perception": 5 } },
+      { "turn": 1, "role": "user", "content": "Thanks for being straight with me, Sofia. You're probably thinking I padded it, or that a simple studio site shouldn't cost this much." },
+      { "turn": 1, "role": "ai", "content": "Oh, no, I don't think you padded it! It's just a lot for us right now.", "state": { "trust": 6, "value_perception": 5 } },
+      { "turn": 2, "role": "user", "content": "That's fair. Setting the budget aside for a second, what matters most to you about the new site?" },
+      { "turn": 2, "role": "ai", "content": "Honestly? Being able to change the class schedule myself. My last site needed a developer every single time, it cost me a fortune.", "state": { "trust": 7, "value_perception": 6, "revealed": ["BLACK_SWAN"] } },
+      { "turn": 3, "role": "user", "content": "It sounds like the real cost of the old site was never the build, it was paying someone every week. With this one you edit the schedule yourself in two minutes. What would make the $4,800 workable for you?" },
+      { "turn": 3, "role": "ai", "content": "If I could spread it out over a few months, I could probably do it.", "state": { "trust": 7.5, "value_perception": 7, "revealed": ["F1"] } },
+      { "turn": 4, "role": "user", "content": "We can do that: $1,200 now and $1,200 a month for three months, same scope. Shall we lock in a kickoff call for Monday at 10?" },
+      { "turn": 4, "role": "ai", "content": "Yes, that works. Monday at 10. Thank you!", "state": { "trust": 8, "value_perception": 7, "end": true, "outcome": "won" } }
+    ]
+  },
+  {
+    "name": "S04-bad",
+    "scenario": "S04",
+    "expect": "bad",
+    "rows": [
+      { "turn": 0, "role": "ai", "content": "Hi! So... I looked at the quote. It's more than I expected, honestly.", "state": { "trust": 5, "value_perception": 5 } },
+      { "turn": 1, "role": "user", "content": "No problem, I can take 30% off, so $3,360." },
+      { "turn": 1, "role": "ai", "content": "Oh! That's kind. My friend's site cost about half that though...", "state": { "trust": 5, "value_perception": 3 } },
+      { "turn": 2, "role": "user", "content": "Your friend's site is probably a cheap template that's not true quality. Mine uses React, a headless CMS, a booking API and proper hosting. That's why it costs more." },
+      { "turn": 2, "role": "ai", "content": "Okay... I don't really know what those are. Could you do $2,500?", "state": { "trust": 4, "value_perception": 2 } },
+      { "turn": 3, "role": "user", "content": "Fine, $2,500. Sounds good?" },
+      { "turn": 3, "role": "ai", "content": "Sure, sounds good, send it over and I'll look at it.", "state": { "trust": 4, "value_perception": 2, "fake_yes": true, "end": true, "outcome": "stalled" } }
+    ]
+  },
+  {
+    "name": "S09-good",
+    "scenario": "S09",
+    "expect": "good",
+    "rows": [
+      { "turn": 0, "role": "ai", "content": "Love the portfolio. Let's talk money. I was thinking $3,000. That's fair for a startup, right?", "state": { "trust": 4, "value_perception": 5 } },
+      { "turn": 1, "role": "user", "content": "I appreciate you being upfront, Alex. How am I supposed to do a full identity with guidelines for that?" },
+      { "turn": 1, "role": "ai", "content": "Come on, other designers charge half what you do.", "state": { "trust": 4.5, "value_perception": 5 } },
+      { "turn": 2, "role": "user", "content": "That might be true. Before we go further on price, what's driving the timing on this project?" },
+      { "turn": 2, "role": "ai", "content": "Demo day. Three weeks. If the brand isn't ready, we look like amateurs in front of investors.", "state": { "trust": 6, "value_perception": 6, "revealed": ["BLACK_SWAN"] } },
+      { "turn": 3, "role": "user", "content": "It sounds like getting it right for demo day matters more than the last thousand dollars. Projects like this, on a three-week timeline, usually land between $8,000 and $10,000. How could we structure payment so it works around your round?" },
+      { "turn": 3, "role": "ai", "content": "If half could wait until after we close the round in two months, I could go higher.", "state": { "trust": 6.5, "value_perception": 7, "revealed": ["F1"] } },
+      { "turn": 4, "role": "user", "content": "Then I can do $7,850: half now, half after the round, and I'd like to use the project as a case study. Does that work?" },
+      { "turn": 4, "role": "ai", "content": "Deal. Send the contract today and let's start Monday.", "state": { "trust": 7, "value_perception": 7, "end": true, "outcome": "won" } }
+    ]
+  },
+  {
+    "name": "S09-bad",
+    "scenario": "S09",
+    "expect": "bad",
+    "rows": [
+      { "turn": 0, "role": "ai", "content": "Love the portfolio. Let's talk money. I was thinking $3,000. That's fair for a startup, right?", "state": { "trust": 4, "value_perception": 5 } },
+      { "turn": 1, "role": "user", "content": "I usually charge $8,000 but I could do $6,000 for you." },
+      { "turn": 1, "role": "ai", "content": "That's not fair, other designers charge half. Let's meet in the middle.", "state": { "trust": 4, "value_perception": 4 } },
+      { "turn": 2, "role": "user", "content": "OK, middle of $3,000 and $6,000 is $4,500. Deal?" },
+      { "turn": 2, "role": "ai", "content": "Deal. Can you also throw in the website mockups?", "state": { "trust": 4, "value_perception": 2 } },
+      { "turn": 3, "role": "user", "content": "Sure, I'll add them for free." },
+      { "turn": 3, "role": "ai", "content": "Great, send it over.", "state": { "trust": 4, "value_perception": 2, "end": true, "outcome": "won" } }
+    ]
+  }
+]

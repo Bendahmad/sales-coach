@@ -256,7 +256,17 @@ export async function takeTurn(userId: string, sessionId: string, text: string):
     .update({ user_turns: turn, last_activity_at: new Date().toISOString() })
     .eq("id", sessionId);
 
-  return runAiStep({ ...session, user_turns: turn }, variant, turn);
+  try {
+    return await runAiStep({ ...session, user_turns: turn }, variant, turn);
+  } catch (e) {
+    // A refused message was never answered: roll it back so the user can rephrase
+    // without leaving two consecutive user turns in the history.
+    if (e instanceof AppError && e.code === "ai_refused") {
+      await db().from("roleplay_messages").delete().eq("session_id", sessionId).eq("turn", turn).eq("role", "user");
+      await db().from("roleplay_sessions").update({ user_turns: turn - 1 }).eq("id", sessionId);
+    }
+    throw e;
+  }
 }
 
 /** Re-runs the AI reply for the latest user turn (after a failed AI call). Idempotent. */
