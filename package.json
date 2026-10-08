@@ -14,8 +14,8 @@
     "knowledge:sync": "tsx scripts/sync-knowledge.ts",
     "knowledge:check": "tsx scripts/sync-knowledge.ts --check",
     "content:validate": "tsx scripts/seed.ts --validate-only",
-    "db:seed": "tsx scripts/seed.ts",
-    "eval:smoke": "tsx scripts/eval-smoke.ts"
+    "db:seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "eval:smoke": "tsx --env-file=.env.local scripts/eval-smoke.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.132.1",
